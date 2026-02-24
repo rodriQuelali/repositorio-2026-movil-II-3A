@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             { response ->
                 //val parsearPostsClass: vienModelJsonplaceHOlder
                 val listaPosts = parsearPosts(response)
+
                 println("DAtaaaaaaaaa")
                 println(listaPosts)
                 println("DAtaaaaaaaaa FInnnnn")
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             )
 
             lista.add(post)
+            //En esta variable esta toda la data "lista"
         }
 
         return lista
