@@ -26,24 +26,25 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        setupObservers()
+        //setupObservers()
 
-        newPost = Post(1, 2,"Nuevo Post", "Contenido del post")
-        savePost()
+        //newPost = Post(1, 2,"Nuevo Post", "Contenido del post")
+        //savePost()
 
 
 
-        //observerListPost()
+        observerListPost()
 
-        //executeListPost()
+        executeListPost()
 
     }
 
     //funcion para el observer
     fun observerListPost(){
         postViewModel.posts.observe(this){ posts ->
-            posts?.let {
-                Log.d("POSTS","-------------Data response: ${it.size}")
+            posts?.forEach {
+                Log.d("POSTS","-------------Data response: ${it.body}")
+                println("tipo de datos -------${it::class.simpleName}")
             }
 
         }
