@@ -18,7 +18,6 @@ class PostDao(private val repository: PostRepository) {
     private val _err = MutableLiveData<String>()
     val err : LiveData<String> get() = _err
 
-    // Ahora el resultado es de tipo WriteResult
     private val _writeResult = MutableLiveData<WriteResult?>()
     val writeResult: LiveData<WriteResult?> get() = _writeResult
 
@@ -45,7 +44,14 @@ class PostDao(private val repository: PostRepository) {
         })
     }
 
-    // Método opcional para limpiar el estado después de mostrar el mensaje
+    fun deletePost(id: Int) {
+        repository.deleteRepositoryPost(id, callback = {
+            _writeResult.value = WriteResult.Success("Post eliminado correctamente")
+        }, errorCallback = { throwable ->
+            _writeResult.value = WriteResult.Error("Error al eliminar el post: ${throwable.message}")
+        })
+    }
+
     fun resetWriteResult() {
         _writeResult.value = null
     }

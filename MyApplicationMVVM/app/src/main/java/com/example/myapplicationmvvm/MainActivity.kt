@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         executeListPost()
-        executeUpdatePost(1, Post(1, 1, "titulo", "contenido"))
+        executeDeletePost(1)
+        //executeUpdatePost(1, Post(1, 1, "titulo", "contenido"))
     }
 
     private fun setupObservers() {
@@ -79,6 +80,8 @@ class MainActivity : AppCompatActivity() {
     fun executeListPost() = postViewModel.getPosts()
     
     fun savePost(post: Post) = postViewModel.addPost(post)
+
+    fun executeDeletePost(id: Int) = postViewModel.deletePost(id)
 
     fun executeUpdatePost(id: Int, post: Post) = postViewModel.updatePost(id, post)
 }

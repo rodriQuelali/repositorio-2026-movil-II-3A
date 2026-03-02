@@ -47,6 +47,23 @@
                     app:boxCornerRadiusBottomEnd="14dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ID"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <!-- User ID -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etUserId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

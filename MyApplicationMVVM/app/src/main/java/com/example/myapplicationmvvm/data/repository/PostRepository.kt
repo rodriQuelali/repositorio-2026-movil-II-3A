@@ -62,4 +62,21 @@ class PostRepository {
         })
     }
 
+    //delete
+    fun deleteRepositoryPost(id: Int, callback: () -> Unit, errorCallback: (Throwable) -> Unit) {
+        apiService.deletePost(id).enqueue(object : Callback<Unit> {
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                if (response.isSuccessful) {
+                    callback()
+                } else {
+                    errorCallback(Throwable("Error al eliminar: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                errorCallback(t)
+            }
+        })
+    }
+
 }

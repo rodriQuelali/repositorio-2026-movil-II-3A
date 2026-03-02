@@ -34,6 +34,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         postDao.updatePost(id, post)
     }
 
+    fun deletePost(id: Int) {
+        postDao.deletePost(id)
+    }
+
     fun resetWriteResult() {
         postDao.resetWriteResult()
     }
