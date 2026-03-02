@@ -2,6 +2,8 @@ package com.example.myapplicationmvvm.ui.post
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -26,6 +28,9 @@ class listaPost : Fragment() {
 
     private lateinit var adapterPost: AdapterPost
     private val postViewModel: PostViewModel by viewModels()
+    
+    // Lista para guardar los datos originales y poder filtrar
+    private var originalList: List<Post> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,19 +65,42 @@ class listaPost : Fragment() {
             adapter = adapterPost
         }
 
+        setupSearch()
         observerListPost()
         executeListPost()
     }
 
+    private fun setupSearch() {
+        binding.etBuscar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filter(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun filter(text: String) {
+        val filteredList = if (text.isEmpty()) {
+            originalList
+        } else {
+            originalList.filter { post ->
+                post.title.lowercase().contains(text.lowercase())
+            }
+        }
+        adapterPost.submitList(filteredList)
+    }
+
     fun observerListPost() {
-        // Observador de la lista de posts
         postViewModel.posts.observe(viewLifecycleOwner) { posts ->
             posts?.let {
+                originalList = it // Guardamos la lista original
                 adapterPost.submitList(it)
             }
         }
 
-        // Observador de errores generales (ej: carga de lista)
         postViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             errorMessage?.let {
                 Log.e("Error_Lista", it)
@@ -80,15 +108,12 @@ class listaPost : Fragment() {
             }
         }
 
-        // 🟢 NUEVO: Observador para el resultado de Editar y Eliminar
         postViewModel.writeResult.observe(viewLifecycleOwner) { result ->
             result?.let {
                 when (it) {
                     is WriteResult.Success -> {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        // Refrescamos la lista automáticamente tras el éxito
                         executeListPost()
-                        // Limpiamos el resultado para no repetir el mensaje
                         postViewModel.resetWriteResult()
                     }
                     is WriteResult.Error -> {
