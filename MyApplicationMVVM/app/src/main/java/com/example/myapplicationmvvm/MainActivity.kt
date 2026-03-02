@@ -2,19 +2,22 @@ package com.example.myapplicationmvvm
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.example.myapplicationmvvm.data.dao.WriteResult
 import com.example.myapplicationmvvm.data.model.Post
 import com.example.myapplicationmvvm.ui.viewmodel.PostViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private val postViewModel: PostViewModel by viewModels()
-    private lateinit var newPost : Post
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,57 +29,56 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        //setupObservers()
-
-        //newPost = Post(1, 2,"Nuevo Post", "Contenido del post")
-        //savePost()
-
-
-
+        // Observadores
+        setupObservers()
         observerListPost()
 
-        executeListPost()
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigationView.setupWithNavController(navController)
+
+        executeListPost()
+        executeUpdatePost(1, Post(1, 1, "titulo", "contenido"))
     }
 
-    //funcion para el observer
+    private fun setupObservers() {
+        // Observamos el resultado de creación/edición con mensajes personalizados
+        postViewModel.writeResult.observe(this) { result ->
+            result?.let {
+                when (it) {
+                    is WriteResult.Success -> {
+                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                        Log.d("API_SUCCESS", it.message)
+                    }
+                    is WriteResult.Error -> {
+                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                        Log.e("API_ERROR", it.message)
+                    }
+                }
+            }
+        }
+    }
+
     fun observerListPost(){
         postViewModel.posts.observe(this){ posts ->
             posts?.forEach {
                 Log.d("POSTS","-------------Data response: ${it.body}")
-                println("tipo de datos -------${it::class.simpleName}")
             }
-
         }
 
         postViewModel.error.observe(this){ errorMessage ->
             errorMessage?.let {
-                Log.e("Error................", it)
+                Log.e("Error_API", it)
             }
-
         }
-
     }
-    //funcion para llamado ala fucnion getPosts del viewModel
+
     fun executeListPost() = postViewModel.getPosts()
-    //practicas
-    //realizar el crud con UI (POST), Fragment puntos extras, con busqueda por Title filtrado,(POO) Obtencion de errores,
-    //
-    // request y response manejando los estados del HTTP.
+    
+    fun savePost(post: Post) = postViewModel.addPost(post)
 
-
-    //observer save post
-    private fun setupObservers() {
-        postViewModel.result.observe(this) { isSuccess ->
-            if (isSuccess) {
-                Log.d("Post", "Post guardado exitosamente")
-                // Actualiza la UI para reflejar el éxito
-            } else {
-                Log.e("Post", "Error al guardar el post")
-                // Muestra un mensaje de error en la UI
-            }
-        }
-    }
-    //funcion de save
-    fun savePost() = postViewModel.addPost(newPost)
+    fun executeUpdatePost(id: Int, post: Post) = postViewModel.updatePost(id, post)
 }

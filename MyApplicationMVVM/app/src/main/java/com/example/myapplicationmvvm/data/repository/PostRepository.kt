@@ -45,4 +45,21 @@ class PostRepository {
         })
     }
 
+    //update
+    fun updateRepositoryPost(id: Int, post: Post, callback: (Post) -> Unit, errorCallback: (Throwable) -> Unit) {
+        apiService.updatePost(id, post).enqueue(object : Callback<Post> {
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                if (response.isSuccessful && response.body() != null) {
+                    callback(response.body()!!)
+                } else {
+                    errorCallback(Throwable("Error al actualizar: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                errorCallback(t)
+            }
+        })
+    }
+
 }
