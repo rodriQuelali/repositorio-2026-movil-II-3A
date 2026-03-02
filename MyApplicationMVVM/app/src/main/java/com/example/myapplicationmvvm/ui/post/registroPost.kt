@@ -5,56 +5,86 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.myapplicationmvvm.R
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import com.example.myapplicationmvvm.data.dao.WriteResult
+import com.example.myapplicationmvvm.data.model.Post
+import com.example.myapplicationmvvm.databinding.FragmentRegistroPostBinding
+import com.example.myapplicationmvvm.ui.viewmodel.PostViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [registroPost.newInstance] factory method to
- * create an instance of this fragment.
- */
 class registroPost : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    // 1. Configuración de View Binding
+    private var _binding: FragmentRegistroPostBinding? = null
+    private val binding get() = _binding!!
+
+    // 2. Obtener ViewModel compartido con la Activity
+    private val postViewModel: PostViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registro_post, container, false)
+    ): View {
+        _binding = FragmentRegistroPostBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment registroPost.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            registroPost().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupListeners()
+        setupObservers()
+    }
+
+    private fun setupListeners() {
+        binding.btnGuardar.setOnClickListener {
+            val userIdString = binding.etUserId.text.toString()
+            val title = binding.etTitle.text.toString()
+            val body = binding.etBody.text.toString()
+
+            if (userIdString.isNotEmpty() && title.isNotEmpty() && body.isNotEmpty()) {
+                val post = Post(
+                    id = 0, // El servidor suele asignar el ID
+                    userId = userIdString.toInt(),
+                    title = title,
+                    body = body
+                )
+                
+                // Llamar al registro
+                postViewModel.addPost(post)
+            } else {
+                Toast.makeText(requireContext(), "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupObservers() {
+        postViewModel.writeResult.observe(viewLifecycleOwner) { result ->
+            result?.let {
+                when (it) {
+                    is WriteResult.Success -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        clearFields()
+                        postViewModel.resetWriteResult() // Limpiar para evitar repeticiones
+                    }
+                    is WriteResult.Error -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        postViewModel.resetWriteResult()
+                    }
                 }
             }
+        }
+    }
+
+    private fun clearFields() {
+        binding.etUserId.text?.clear()
+        binding.etTitle.text?.clear()
+        binding.etBody.text?.clear()
+        binding.etId.text?.clear()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Evitar fugas de memoria
     }
 }

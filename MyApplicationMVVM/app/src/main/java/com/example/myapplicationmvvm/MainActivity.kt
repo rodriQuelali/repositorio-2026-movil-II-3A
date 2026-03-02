@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Observadores
-        setupObservers()
-        observerListPost()
+        //setupObservers()
+        //observerListPost()
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNavigationView.setupWithNavController(navController)
 
-        executeListPost()
-        executeDeletePost(1)
+        //executeListPost()
+        //executeDeletePost(1)
         //executeUpdatePost(1, Post(1, 1, "titulo", "contenido"))
     }
 
