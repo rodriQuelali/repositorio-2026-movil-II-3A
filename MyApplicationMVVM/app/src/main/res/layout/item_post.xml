@@ -4,14 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="#E5E7EB"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp"
     android:backgroundTint="@android:color/white">
 
     <LinearLayout
@@ -20,51 +17,70 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- USER ID -->
-        <TextView
-            android:id="@+id/tvUserId"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User ID: 1"
-            android:textSize="12sp"
-            android:textColor="#6B7280"
-            android:textStyle="bold"
-            android:layout_marginBottom="6dp"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
 
-        <!-- TITLE -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_myplaces"
+                app:tint="#2563EB"
+                android:background="#EFF6FF"
+                android:padding="6dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+            <TextView
+                android:id="@+id/tvUserId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="Usuario #1"
+                android:textSize="14sp"
+                android:textColor="#6B7280"
+                android:fontFamily="sans-serif-medium"/>
+
+            <ImageButton
+                android:id="@+id/btnEditar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_edit"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#2563EB" />
+
+            <ImageButton
+                android:id="@+id/btnEliminar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#DC2626" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Título del Post aquí"
+            android:text="Título del Post"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#111827"
-            android:maxLines="2"
-            android:ellipsize="end"
             android:layout_marginBottom="8dp"/>
 
-        <!-- BODY -->
         <TextView
             android:id="@+id/tvBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contenido del post aquí..."
-            android:textSize="14sp"
-            android:textColor="#374151"
-            android:lineSpacingExtra="2dp"
+            android:text="Este es el contenido del post..."
+            android:textSize="15sp"
+            android:textColor="#4B5563"
+            android:lineHeight="22sp"
             android:maxLines="3"
             android:ellipsize="end"/>
-        <Button android:id="@+id/btnEditar"
-            android:text="Editar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button android:id="@+id/btnEliminar"
-            android:text="Eliminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

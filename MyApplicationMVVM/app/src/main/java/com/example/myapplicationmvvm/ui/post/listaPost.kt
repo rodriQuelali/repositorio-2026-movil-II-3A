@@ -29,7 +29,6 @@ class listaPost : Fragment() {
     private lateinit var adapterPost: AdapterPost
     private val postViewModel: PostViewModel by viewModels()
     
-    // Lista para guardar los datos originales y poder filtrar
     private var originalList: List<Post> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +95,7 @@ class listaPost : Fragment() {
     fun observerListPost() {
         postViewModel.posts.observe(viewLifecycleOwner) { posts ->
             posts?.let {
-                originalList = it // Guardamos la lista original
+                originalList = it
                 adapterPost.submitList(it)
             }
         }
@@ -135,15 +134,18 @@ class listaPost : Fragment() {
 
         dialog.show()
 
+        // Mostrar datos (etUserId y etId están bloqueados en el XML)
         dialogBinding.etUserId.setText(post.userId.toString())
         dialogBinding.etId.setText(post.id.toString())
         dialogBinding.etTitle.setText(post.title)
         dialogBinding.etBody.setText(post.body)
 
+        dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+
         dialogBinding.btnSave.setOnClickListener {
             val updatedPost = Post(
-                userId = dialogBinding.etUserId.text.toString().toIntOrNull() ?: 0,
-                id = dialogBinding.etId.text.toString().toIntOrNull() ?: 0,
+                userId = post.userId, // Usamos el original ya que está bloqueado
+                id = post.id,         // Usamos el original ya que está bloqueado
                 title = dialogBinding.etTitle.text.toString(),
                 body = dialogBinding.etBody.text.toString()
             )
@@ -160,6 +162,8 @@ class listaPost : Fragment() {
             .create()
 
         dialog.show()
+
+        dialogBinding.btnCancelDelete.setOnClickListener { dialog.dismiss() }
 
         dialogBinding.btnConfirmDelete.setOnClickListener {
             postViewModel.deletePost(post.id)
