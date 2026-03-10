@@ -25,6 +25,7 @@ class registroPost : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentRegistroPostBinding.inflate(inflater, container, false)
         return binding.root
     }
