@@ -6,23 +6,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myproyectcars.databinding.ActivityLoginBinding
-import com.example.myproyectcars.databinding.ActivityMainBinding
+
+import com.example.myproyectcars.databinding.ActivityMainNBinding
+
 import com.example.myproyectcars.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainNBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_n)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainNBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         var btnlogin = binding.btnLogin
