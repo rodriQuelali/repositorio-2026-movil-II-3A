@@ -1,6 +1,7 @@
 package com.example.myproyectcars.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,6 +16,7 @@ import android.widget.Toast
 import com.example.myproyectcars.databinding.ActivityLoginBinding
 
 import com.example.myproyectcars.R
+import com.example.myproyectcars.ui.user.MainActivityUser
 import com.google.android.material.textfield.TextInputEditText
 
 class LoginActivity : AppCompatActivity() {
@@ -58,6 +60,9 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
+                //el llamado de una nueva actividad
+                var i = Intent(this, MainActivityUser::class.java)
+                startActivity(i)
                 updateUiWithUser(loginResult.success)
             }
             setResult(Activity.RESULT_OK)
@@ -93,6 +98,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             login.setOnClickListener {
+                //estado onclick
+
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
