@@ -10,9 +10,13 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.myproyectcars.databinding.ActivityMainNBinding
 
 import com.example.myproyectcars.ui.login.LoginActivity
+import com.example.myproyectcars.ui.user.MainActivityUser
 
 class MainActivity : AppCompatActivity() {
+    //np se maneja la clase R. Se maneja viewBinding
+    //
     private lateinit var binding: ActivityMainNBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,9 +31,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var btnlogin = binding.btnLogin
+        var btnRegister = binding.btnSignIn
+
         btnlogin.setOnClickListener {
             var i  = Intent(this, LoginActivity::class.java)
             startActivity(i)
         }
+
+        btnRegister.setOnClickListener {
+            var i  = Intent(this, MainActivityUser::class.java)
+            startActivity(i)
+        }
+
     }
 }
