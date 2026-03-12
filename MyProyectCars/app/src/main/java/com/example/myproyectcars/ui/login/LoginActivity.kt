@@ -17,6 +17,7 @@ import com.example.myproyectcars.CpanelCard
 import com.example.myproyectcars.databinding.ActivityLoginBinding
 
 import com.example.myproyectcars.R
+import com.example.myproyectcars.ui.user.MainActivityUser
 import com.google.android.material.textfield.TextInputEditText
 
 class LoginActivity : AppCompatActivity() {
@@ -60,8 +61,8 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
-                //llamado del Nue va activida
-                var i= Intent(this, CpanelCard::class.java)
+                //el llamado de una nueva actividad
+                var i = Intent(this, MainActivityUser::class.java)
                 startActivity(i)
                 updateUiWithUser(loginResult.success)
             }
@@ -98,6 +99,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             login.setOnClickListener {
+                //estado onclick
+
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
