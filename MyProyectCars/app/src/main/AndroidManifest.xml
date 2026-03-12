@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProyectCars">
         <activity
+            android:name=".CpanelCard"
+            android:exported="false"
+            android:label="@string/title_activity_cpanel_card"
+            android:resizeableActivity="true"
+            android:theme="@style/Theme.MyProyectCars.NoActionBar"
+            tools:targetApi="24" />
+        <activity
             android:name=".ui.user.MainActivityUser"
             android:exported="false" />
         <activity

@@ -1,6 +1,7 @@
 package com.example.myproyectcars.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import com.example.myproyectcars.CpanelCard
 import com.example.myproyectcars.databinding.ActivityLoginBinding
 
 import com.example.myproyectcars.R
@@ -58,6 +60,9 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
+                //llamado del Nue va activida
+                var i= Intent(this, CpanelCard::class.java)
+                startActivity(i)
                 updateUiWithUser(loginResult.success)
             }
             setResult(Activity.RESULT_OK)

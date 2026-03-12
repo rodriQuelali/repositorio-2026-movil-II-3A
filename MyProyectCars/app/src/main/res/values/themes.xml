@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.MyProyectCars" parent="Base.Theme.MyProyectCars" />
+
+    <style name="Theme.MyProyectCars.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MyProyectCars.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MyProyectCars.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
