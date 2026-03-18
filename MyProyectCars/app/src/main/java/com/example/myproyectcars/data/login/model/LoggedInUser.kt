@@ -1,4 +1,4 @@
-package com.example.myproyectcars.data.model
+package com.example.myproyectcars.data.login.model
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

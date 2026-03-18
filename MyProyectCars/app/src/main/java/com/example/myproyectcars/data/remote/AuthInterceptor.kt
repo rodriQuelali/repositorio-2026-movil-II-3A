@@ -1,4 +1,4 @@
-package com.example.myproyectcars.data.model.remote
+package com.example.myproyectcars.data.remote
 
 import android.content.Context
 import okhttp3.Interceptor

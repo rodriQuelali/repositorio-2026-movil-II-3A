@@ -1,4 +1,4 @@
-package com.example.myproyectcars.data.model.user
+package com.example.myproyectcars.data.user.model
 
 data class User(
     var first_name : String,

@@ -1,9 +1,11 @@
-package com.example.myproyectcars.data
+package com.example.myproyectcars.data.login.model
 
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>
  */
+//llamo a Result.succces = UserResponse
+//llama a resul.sicees = LoginResponse
 sealed class Result<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : Result<T>()

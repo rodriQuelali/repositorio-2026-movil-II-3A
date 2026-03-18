@@ -2,8 +2,8 @@ package com.example.myproyectcars.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.myproyectcars.data.LoginDataSource
-import com.example.myproyectcars.data.LoginRepository
+import com.example.myproyectcars.data.login.datasource.LoginDataSource
+import com.example.myproyectcars.data.login.repository.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

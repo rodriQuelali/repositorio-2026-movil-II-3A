@@ -1,6 +1,8 @@
-package com.example.myproyectcars.data
+package com.example.myproyectcars.data.login.repository
 
-import com.example.myproyectcars.data.model.LoggedInUser
+import com.example.myproyectcars.data.login.model.Result
+import com.example.myproyectcars.data.login.datasource.LoginDataSource
+import com.example.myproyectcars.data.login.model.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and

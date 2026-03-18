@@ -1,4 +1,4 @@
-package com.example.myproyectcars.data.model.remote
+package com.example.myproyectcars.data.remote
 
 import android.content.Context
 import okhttp3.OkHttpClient
@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL = "http://172.19.0.197:8000/"
+    private const val BASE_URL = "http://10.10.3.61:8000/"
 
     // Instancia única de ApiService
     private var apiService: ApiService? = null
