@@ -38,4 +38,7 @@
     <string name="image_view_item_transform_content_description">Represents an image view in the
         item
     </string>
+
+    <string name="error_register">Error en el registro</string>
+    <string name="error_firstName">"Complete el campo nombre"</string>
 </resources>
