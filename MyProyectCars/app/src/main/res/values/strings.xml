@@ -40,5 +40,8 @@
     </string>
 
     <string name="error_register">Error en el registro</string>
-    <string name="error_firstName">"Complete el campo nombre"</string>
+    <string name="error_firstName">Complete el campo nombre</string>
+    <string name="error_lastName">Complete el campo apellido</string>
+    <string name="error_emailName">Complete el campo email</string>
+    <string name="error_passwordName">Complete el campo contrasena</string>
 </resources>

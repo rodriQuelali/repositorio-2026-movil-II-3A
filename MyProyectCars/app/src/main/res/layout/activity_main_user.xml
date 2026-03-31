@@ -110,6 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="@string/action_register"
+                android:enabled="false"
                 android:textSize="16sp"
                 android:layout_marginTop="24dp"
                 app:cornerRadius="12dp"/>

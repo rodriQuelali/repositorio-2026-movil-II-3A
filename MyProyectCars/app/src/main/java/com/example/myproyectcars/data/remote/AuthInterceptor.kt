@@ -10,8 +10,12 @@ class AuthInterceptor(private val context: Context): Interceptor {
         val request = chain.request()
         val token = getAccessToken()
 
+        val path = request.url.encodedPath
+        val isLogin = path.contains("/auth/api/token/")
+        val isRegister = path.contains("/users/")
+
         // Verifica si la solicitud es para el endpoint de login
-        if (!request.url.encodedPath.contains("/auth/api/token") && !token.isNullOrEmpty()) {
+        if (!isLogin && !isRegister && !token.isNullOrEmpty()) {
             // Solo añadir el token si no es una solicitud de login y el token no es nulo
             val newRequest = request.newBuilder()
                 .addHeader("Authorization", "Bearer $token")

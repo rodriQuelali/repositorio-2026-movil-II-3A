@@ -37,6 +37,14 @@ class UserViewModel(private val userRepository: UserRepository): ViewModel() {
     fun userDataChanged(firstName: String, lastname: String, email: String, password: String){
         if(!isFirtsNameValid(firstName)){
             _userForm.value = UserFormState(firstNameError = R.string.error_firstName)
+        }else if(!isLastNameValid(lastname)){
+            _userForm.value = UserFormState(lastNameError = R.string.error_lastName)
+        }else if(!isEmailValid(email)){
+            _userForm.value = UserFormState(emailError = R.string.error_emailName)
+        }else if(!isPasswordValid(password)){
+            _userForm.value = UserFormState(passwordError = R.string.error_passwordName)
+        }else{
+            _userForm.value = UserFormState(isDataValid = true)
         }
 
     }
