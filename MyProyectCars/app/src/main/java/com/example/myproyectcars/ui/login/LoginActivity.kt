@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+        loginViewModel = ViewModelProvider(this, LoginViewModelFactory(this))
             .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.success != null) {
                 //el llamado de una nueva actividad
                 var i = Intent(this, CpanelCard::class.java)
-                startActivity(i)
+                startActivity(i)+++++
                 updateUiWithUser(loginResult.success)
             }
             setResult(Activity.RESULT_OK)
