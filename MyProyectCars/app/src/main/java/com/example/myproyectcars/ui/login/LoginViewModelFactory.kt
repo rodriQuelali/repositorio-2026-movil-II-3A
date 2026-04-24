@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.myproyectcars.data.login.datasource.LoginDataSource
 import com.example.myproyectcars.data.login.repository.LoginRepository
+import com.example.myproyectcars.utils.NotificationHelper
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
@@ -18,7 +19,8 @@ class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Fa
             return LoginViewModel(
                 loginRepository = LoginRepository(
                     dataSource = LoginDataSource(context)
-                )
+                ),
+                notificationHelper = NotificationHelper(context)
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

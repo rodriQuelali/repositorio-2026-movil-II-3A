@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.success != null) {
                 //el llamado de una nueva actividad
                 var i = Intent(this, CpanelCard::class.java)
-                startActivity(i)+++++
+                startActivity(i)
                 updateUiWithUser(loginResult.success)
             }
             setResult(Activity.RESULT_OK)
