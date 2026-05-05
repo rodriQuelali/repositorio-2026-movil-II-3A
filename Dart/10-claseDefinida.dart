@@ -1,16 +1,24 @@
-void main (){
-  Heroe heroe1 = Heroe(nombre: "superman", poder: "super fuerza");
-  print(heroe1.toString());
+void main(){
+
+  var wolvewrin = new Heroe(nombre: "matar", poder: "poder");
+  print(wolvewrin.toString());
+
 
 }
-
-//clases, es un molde o plantilla que define las propiedades y comportamientos de un objeto.
 
 class Heroe{
     String nombre;
     String poder;
     
     //constructor
+
+    //antigua forma
+
+ /* Heroe ({String nombre='sin nombre', String poder}){
+     this.nombre = nombre;
+     this.poder = poder;
+   }*/
+    
     Heroe({required this.nombre,required this.poder});
 
     //override 
