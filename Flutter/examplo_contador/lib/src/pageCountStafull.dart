@@ -15,6 +15,13 @@ class _MyHomePageState extends State<MyHomePage> {
       _contador++;
     });
   }
+
+  void _decremeto(){
+    // setState , es un metodo que se encarga de actualizar la interfaz de usuario cada vez que se llama a este metodo, es decir, cada vez que se llama a este metodo, se vuelve a construir la interfaz de usuario con los nuevos datos.
+    setState(() {
+      _contador--;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
           disenoContador(),
         ],
       ), 
+      
       
       floatingActionButton: FloatingActionButton(
         onPressed: _incremeto,
