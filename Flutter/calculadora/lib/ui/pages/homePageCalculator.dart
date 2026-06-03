@@ -1,4 +1,5 @@
 
+import 'package:calculadora/class/Calculadora.dart';
 import 'package:flutter/material.dart';
 
 class HomePageCalculator extends StatefulWidget {
@@ -13,7 +14,9 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
   final TextEditingController txtNum1Controller = TextEditingController();
   
   // Variable para mostrar el resultado dinámicamente en la pantalla
-  String _resultado = "0";
+  String resultado = "0";
+  double resultadoDouble = 0.0;
+  String _auxResultado = "0";
 
   // Procedimiento para mostrar alertas de error
   void alertaError(BuildContext context, String mensaje) {
@@ -79,6 +82,8 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                 "Ingrese valor",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
+              SizedBox(height: 8),
+              Text("$_auxResultado"),
               const SizedBox(height: 8),
               TextField(
                 controller: txtNum1Controller,
@@ -93,7 +98,7 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
               // Contenedor de resultado centrado y limpio
               Center(
                 child: Text(
-                  "Resultado: $_resultado",
+                  "Resultado: $resultado",
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -109,10 +114,18 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildBoton("7", colorNumeros, () {}),
-                          _buildBoton("4", colorNumeros, () {}),
-                          _buildBoton("1", colorNumeros, () {}),
-                          _buildBoton(",", colorOperadores, () {}),
+                          _buildBoton("7", colorNumeros, () {
+                            txtNum1Controller.text += "7";
+                          }),
+                          _buildBoton("4", colorNumeros, () {
+                            txtNum1Controller.text += "4";
+                          }),
+                          _buildBoton("1", colorNumeros, () {
+                            txtNum1Controller.text += "1";
+                          }),
+                          _buildBoton(",", colorOperadores, () {
+                            txtNum1Controller.text += ",";
+                          }),
                         ],
                       ),
                     ),
@@ -121,10 +134,18 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildBoton("8", colorNumeros, () {}),
-                          _buildBoton("5", colorNumeros, () {}),
-                          _buildBoton("2", colorNumeros, () {}),
-                          _buildBoton("0", colorNumeros, () {}),
+                          _buildBoton("8", colorNumeros, () {
+                            txtNum1Controller.text += "8";
+                          }),
+                          _buildBoton("5", colorNumeros, () {
+                            txtNum1Controller.text += "5";
+                          }),
+                          _buildBoton("2", colorNumeros, () {
+                            txtNum1Controller.text += "2";
+                          }),
+                          _buildBoton("0", colorNumeros, () {
+                            txtNum1Controller.text += "0";
+                          }),
                         ],
                       ),
                     ),
@@ -133,10 +154,26 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildBoton("9", colorNumeros, () {}),
-                          _buildBoton("6", colorNumeros, () {}),
-                          _buildBoton("3", colorNumeros, () {}),
-                          _buildBoton("=", colorOperadores, () {}),
+                          _buildBoton("9", colorNumeros, () {
+                            txtNum1Controller.text += "9";
+                          }),
+                          _buildBoton("6", colorNumeros, () {
+                            txtNum1Controller.text += "6";
+                          }),
+                          _buildBoton("3", colorNumeros, () {
+                            txtNum1Controller.text += "3";
+                          }),
+                          _buildBoton("=", colorOperadores, () {
+                            // Lógica para calcular el resultado
+                            setState(() {
+                              _auxResultado += txtNum1Controller.text;
+                              Calculadora calc = Calculadora();
+                              resultado = calc.convertirPunto(_auxResultado, resultado);
+                              //resultadoDouble = double.parse(txtNum1Controller.text) + double.parse(resultado);
+                              txtNum1Controller.text = "";
+                              
+                            });
+                          }),
                         ],
                       ),
                     ),
@@ -148,7 +185,13 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                           _buildBoton("/", colorOperadores, () {}),
                           _buildBoton("x", colorOperadores, () {}),
                           _buildBoton("-", colorOperadores, () {}),
-                          _buildBoton("+", colorOperadores, () {}),
+                          _buildBoton("+", colorOperadores, () {
+                            resultado = txtNum1Controller.text;
+                            setState(() {
+                              _auxResultado = txtNum1Controller.text + "+";
+                              txtNum1Controller.text = "";
+                            });
+                          }),
                         ],
                       ),
                     ),
