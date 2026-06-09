@@ -167,8 +167,11 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                             // Lógica para calcular el resultado
                             setState(() {
                               _auxResultado += txtNum1Controller.text;
+                              //_auxResulatado = "12,2+" + 2
+                              //todo el codigo de conversion de punto y suma.
+
                               Calculadora calc = Calculadora();
-                              resultado = calc.convertirPunto(_auxResultado, resultado);
+                              resultado = calc.suma(resultado, txtNum1Controller.text);
                               //resultadoDouble = double.parse(txtNum1Controller.text) + double.parse(resultado);
                               txtNum1Controller.text = "";
                               
@@ -184,7 +187,13 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                         children: [
                           _buildBoton("/", colorOperadores, () {}),
                           _buildBoton("x", colorOperadores, () {}),
-                          _buildBoton("-", colorOperadores, () {}),
+                          _buildBoton("-", colorOperadores, () {
+                              resultado = txtNum1Controller.text;
+                              setState(() {
+                                _auxResultado = txtNum1Controller.text + "-";
+                                txtNum1Controller.text = "";
+                              });
+                          }),
                           _buildBoton("+", colorOperadores, () {
                             resultado = txtNum1Controller.text;
                             setState(() {
