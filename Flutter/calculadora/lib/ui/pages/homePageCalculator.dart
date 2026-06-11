@@ -170,8 +170,8 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                               //_auxResulatado = "12,2+" + 2
                               //todo el codigo de conversion de punto y suma.
 
-                              Calculadora calc = Calculadora();
-                              resultado = calc.suma(resultado, txtNum1Controller.text);
+                              Calculadora calc = Calculadora(resultado, txtNum1Controller.text);
+                              resultado = calc.suma();
                               //resultadoDouble = double.parse(txtNum1Controller.text) + double.parse(resultado);
                               txtNum1Controller.text = "";
                               
