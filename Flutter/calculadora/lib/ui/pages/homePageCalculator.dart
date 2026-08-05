@@ -17,6 +17,7 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
   String resultado = "0";
   double resultadoDouble = 0.0;
   String _auxResultado = "0";
+  String auxOperador = "";
 
   // Procedimiento para mostrar alertas de error
   void alertaError(BuildContext context, String mensaje) {
@@ -164,15 +165,18 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                             txtNum1Controller.text += "3";
                           }),
                           _buildBoton("=", colorOperadores, () {
-                            // Lógica para calcular el resultado
+                            
                             setState(() {
                               _auxResultado += txtNum1Controller.text;
-                              //_auxResulatado = "12,2+" + 2
-                              //todo el codigo de conversion de punto y suma.
-
+                              
                               Calculadora calc = Calculadora(resultado, txtNum1Controller.text);
-                              resultado = calc.suma();
-                              //resultadoDouble = double.parse(txtNum1Controller.text) + double.parse(resultado);
+                              if(auxOperador == "+"){
+                                resultado = calc.suma();
+                              }else if(auxOperador == "-"){
+                                resultado = calc.resta();
+                              }
+                              
+                              auxOperador = "";
                               txtNum1Controller.text = "";
                               
                             });
@@ -189,6 +193,7 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                           _buildBoton("x", colorOperadores, () {}),
                           _buildBoton("-", colorOperadores, () {
                               resultado = txtNum1Controller.text;
+                              auxOperador = "-";
                               setState(() {
                                 _auxResultado = txtNum1Controller.text + "-";
                                 txtNum1Controller.text = "";
@@ -196,6 +201,7 @@ class _HomePageCalculatorState extends State<HomePageCalculator> {
                           }),
                           _buildBoton("+", colorOperadores, () {
                             resultado = txtNum1Controller.text;
+                            auxOperador = "+";
                             setState(() {
                               _auxResultado = txtNum1Controller.text + "+";
                               txtNum1Controller.text = "";

@@ -11,9 +11,11 @@ import 'package:calculadora/class/FormatoLatam.dart';
 /// 
 class Calculadora{
   
+  String _a;
+  String _b;
   FormatoLatam formato = FormatoLatam();
 
-  Calculadora(String a, String b);
+  Calculadora(this._a , this._b);
 
   
     //metodo suma, recibe dos string, los convierte a double, realiza la operacion y devuelve el resultado en formato latinoamericano
@@ -21,14 +23,26 @@ class Calculadora{
     //[b]: [String], numero 2
     String suma(){
       
-      List<String>numeros = formato.convertirPunto(a, b);
-      this.a = numeros[0]; //12.9
-      this.b = numeros[1]; //2.1
-      var r = ((double.parse(a) + double.parse(b)));
+      List<String>numeros = formato.convertirPunto(_a, _b);
+      this._a = numeros[0]; //12.9
+      this._b = numeros[1]; //2.1
+      var r = ((double.parse(_a) + double.parse(_b)));
      
       return formato.resultadoFinalConvertir(r);
     }
 
-   
+    String resta(){
+      
+      List<String>numeros = formato.convertirPunto(_a, _b);
+      this._a = numeros[0]; //12.9
+      this._b = numeros[1]; //2.1
+      var r = ((double.parse(_a) - double.parse(_b)));
+     
+      return formato.resultadoFinalConvertir(r);
+    }
 
+    //resto de las opraciones
+    //analizar la division, utilizar S.
+
+    //mejorar la UI. p
 }
