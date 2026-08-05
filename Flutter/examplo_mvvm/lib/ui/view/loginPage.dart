@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../theme/colors.dart';
+import '../theme/typography.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,36 +15,19 @@ class _LoginPageState extends State<LoginPage> {
   bool _rememberMe = false;
   bool _passwordVisible = false;
 
-  void _toggleRememberMe() {
-    setState(() {
-      _rememberMe = !_rememberMe;
-    });
-  }
+  void _toggleRememberMe() => setState(() => _rememberMe = !_rememberMe);
+  void _togglePasswordVisibility() => setState(() => _passwordVisible = !_passwordVisible);
 
-  void _togglePasswordVisibility() {
-    setState(() {
-      _passwordVisible = !_passwordVisible;
-    });
-  }
-
-  void _signIn() {
-    // Aquí va la lógica de inicio de sesión o el llamado al ViewModel.
-  }
-
-  void _register() {
-    // Navegar a la pantalla de registro.
-  }
-
-  void _forgotPassword() {
-    // Navegar a la pantalla de recuperación de contraseña.
-  }
+  void _signIn() {}
+  void _register() {}
+  void _forgotPassword() {}
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7EFE0),
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -65,10 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                   onGoogleSignIn: () {},
                 ),
                 const SizedBox(height: 20),
-                _FooterLink(
-                  onRegister: _register,
-                  theme: theme,
-                ),
+                _FooterLink(onRegister: _register, theme: theme),
               ],
             ),
           ),
@@ -85,21 +67,10 @@ class _LoginHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Icon(
-          Icons.shield,
-          size: 48,
-          color: Color(0xFF2B7A69),
-        ),
-        SizedBox(height: 16),
-        Text(
-          'Quietly Confident',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1E3931),
-          ),
-        ),
+      children: [
+        Icon(Icons.shield, size: 48, color: AppColors.primary),
+        const SizedBox(height: 16),
+        Text('Quietly Confident', style: AppTypography.headline),
       ],
     );
   }
@@ -133,36 +104,19 @@ class _LoginCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 18,
-            offset: const Offset(0, 10),
-          ),
+          BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 18, offset: const Offset(0, 10)),
         ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Bienvenido',
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1E3931),
-            ),
-          ),
+          Text('Bienvenido', style: AppTypography.title),
           const SizedBox(height: 8),
-          const Text(
-            'Inicia sesión para continuar',
-            style: TextStyle(
-              fontSize: 16,
-              color: Color(0xFF6B7D77),
-            ),
-          ),
+          Text('Inicia sesión para continuar', style: AppTypography.body),
           const SizedBox(height: 24),
           _AuthTextField(
             controller: emailController,
@@ -179,10 +133,7 @@ class _LoginCard extends StatelessWidget {
             prefixIcon: Icons.lock_outline,
             obscureText: !passwordVisible,
             suffixIcon: IconButton(
-              icon: Icon(
-                passwordVisible ? Icons.visibility_off : Icons.visibility,
-                color: const Color(0xFF6B7D77),
-              ),
+              icon: Icon(passwordVisible ? Icons.visibility_off : Icons.visibility, color: AppColors.muted),
               onPressed: onPasswordVisibilityChanged,
             ),
           ),
@@ -193,92 +144,38 @@ class _LoginCard extends StatelessWidget {
                 onTap: onRememberMeChanged,
                 child: Row(
                   children: [
-                    Checkbox(
-                      value: rememberMe,
-                      onChanged: (_) => onRememberMeChanged(),
-                      activeColor: const Color(0xFF2B7A69),
-                    ),
-                    const Text(
-                      'Recordar contraseña',
-                      style: TextStyle(
-                        color: Color(0xFF1E3931),
-                      ),
-                    ),
+                    Checkbox(value: rememberMe, onChanged: (_) => onRememberMeChanged(), activeColor: AppColors.primary),
+                    Text('Recordar contraseña', style: AppTypography.label),
                   ],
                 ),
               ),
               const Spacer(),
-              GestureDetector(
-                onTap: onForgotPassword,
-                child: const Text(
-                  '¿Olvidaste tu contraseña?',
-                  style: TextStyle(
-                    color: Color(0xFFDE5F4B),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+              GestureDetector(onTap: onForgotPassword, child: Text('¿Olvidaste tu contraseña?', style: AppTypography.link)),
             ],
           ),
           const SizedBox(height: 24),
-          _PrimaryButton(
-            text: 'Iniciar Sesión',
-            onPressed: onSignIn,
-          ),
+          _PrimaryButton(text: 'Iniciar Sesión', onPressed: onSignIn),
           const SizedBox(height: 24),
           const _DividerWithText(text: 'O continúa con'),
           const SizedBox(height: 20),
-          _SocialButton(
-            icon: Icons.g_mobiledata,
-            text: 'Registrarse con Google',
-            onPressed: onGoogleSignIn,
-          ),
+          _SocialButton(icon: Icons.g_mobiledata, text: 'Registrarse con Google', onPressed: onGoogleSignIn),
           const SizedBox(height: 16),
-          const Divider(color: Color(0xFFEBE4D7)),
+          Divider(color: AppColors.divider),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('¿No tienes una cuenta? '),
-              GestureDetector(
-                onTap: onSignIn,
-                child: const Text(
-                  'Regístrate',
-                  style: TextStyle(
-                    color: Color(0xFFDE5F4B),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text('¿No tienes una cuenta? ', style: AppTypography.body.copyWith(color: AppColors.muted)),
+            GestureDetector(onTap: onSignIn, child: Text('Regístrate', style: AppTypography.link.copyWith(fontWeight: FontWeight.bold))),
+          ]),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                'Políticas de Privacidad',
-                style: TextStyle(color: Color(0xFF9AA9A1)),
-              ),
-              SizedBox(width: 6),
-              Text('·', style: TextStyle(color: Color(0xFF9AA9A1))),
-              SizedBox(width: 6),
-              Text(
-                'Términos',
-                style: TextStyle(color: Color(0xFF9AA9A1)),
-              ),
-            ],
-          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text('Políticas de Privacidad', style: AppTypography.caption),
+            const SizedBox(width: 6),
+            Text('·', style: AppTypography.caption),
+            const SizedBox(width: 6),
+            Text('Términos', style: AppTypography.caption),
+          ]),
           const SizedBox(height: 12),
-          const Center(
-            child: Text(
-              '© 2024 Quietly Confident. All rights reserved.',
-              style: TextStyle(
-                color: Color(0xFF9AA9A1),
-                fontSize: 12,
-              ),
-            ),
-          ),
+          Center(child: Text('© 2024 Quietly Confident. All rights reserved.', style: AppTypography.caption)),
         ],
       ),
     );
@@ -309,13 +206,7 @@ class _AuthTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1E3931),
-          ),
-        ),
+        Text(label, style: AppTypography.label),
         const SizedBox(height: 8),
         TextField(
           controller: controller,
@@ -323,15 +214,12 @@ class _AuthTextField extends StatelessWidget {
           keyboardType: keyboardType,
           decoration: InputDecoration(
             hintText: hintText,
-            prefixIcon: Icon(prefixIcon, color: const Color(0xFF6B7D77)),
+            prefixIcon: Icon(prefixIcon, color: AppColors.muted),
             suffixIcon: suffixIcon,
             filled: true,
-            fillColor: const Color(0xFFF8F4EA),
+            fillColor: AppColors.fill,
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none,
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
           ),
         ),
       ],
@@ -340,11 +228,7 @@ class _AuthTextField extends StatelessWidget {
 }
 
 class _PrimaryButton extends StatelessWidget {
-  const _PrimaryButton({
-    required this.text,
-    required this.onPressed,
-  });
-
+  const _PrimaryButton({required this.text, required this.onPressed});
   final String text;
   final VoidCallback onPressed;
 
@@ -354,27 +238,15 @@ class _PrimaryButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2B7A69),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
+        style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), padding: const EdgeInsets.symmetric(vertical: 16)),
+        child: Text(text, style: AppTypography.button),
       ),
     );
   }
 }
 
 class _SocialButton extends StatelessWidget {
-  const _SocialButton({
-    required this.icon,
-    required this.text,
-    required this.onPressed,
-  });
-
+  const _SocialButton({required this.icon, required this.text, required this.onPressed});
   final IconData icon;
   final String text;
   final VoidCallback onPressed;
@@ -385,20 +257,9 @@ class _SocialButton extends StatelessWidget {
       width: double.infinity,
       child: OutlinedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon, size: 26, color: const Color(0xFF2B7A69)),
-        label: Text(
-          text,
-          style: const TextStyle(
-            color: Color(0xFF2B7A69),
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          side: const BorderSide(color: Color(0xFFE2D8C7)),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          backgroundColor: const Color(0xFFF8F4EA),
-        ),
+        icon: Icon(icon, size: 26, color: AppColors.primary),
+        label: Text(text, style: AppTypography.button.copyWith(color: AppColors.primary)),
+        style: OutlinedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 14), side: BorderSide(color: AppColors.border), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), backgroundColor: AppColors.fill),
       ),
     );
   }
@@ -406,33 +267,22 @@ class _SocialButton extends StatelessWidget {
 
 class _DividerWithText extends StatelessWidget {
   const _DividerWithText({required this.text});
-
   final String text;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Expanded(child: Divider(color: Color(0xFFE2D8C7), thickness: 1)),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14),
-          child: Text(
-            text,
-            style: const TextStyle(color: Color(0xFF6B7D77)),
-          ),
-        ),
-        const Expanded(child: Divider(color: Color(0xFFE2D8C7), thickness: 1)),
+        Expanded(child: Divider(color: AppColors.border, thickness: 1)),
+        Padding(padding: const EdgeInsets.symmetric(horizontal: 14), child: Text(text, style: AppTypography.muted)),
+        Expanded(child: Divider(color: AppColors.border, thickness: 1)),
       ],
     );
   }
 }
 
 class _FooterLink extends StatelessWidget {
-  const _FooterLink({
-    required this.onRegister,
-    required this.theme,
-  });
-
+  const _FooterLink({required this.onRegister, required this.theme});
   final VoidCallback onRegister;
   final ThemeData theme;
 
@@ -443,19 +293,7 @@ class _FooterLink extends StatelessWidget {
         GestureDetector(
           onTap: onRegister,
           child: RichText(
-            text: TextSpan(
-              text: '¿No tienes una cuenta? ',
-              style: theme.textTheme.bodyMedium?.copyWith(color: const Color(0xFF6B7D77)),
-              children: const [
-                TextSpan(
-                  text: 'Regístrate',
-                  style: TextStyle(
-                    color: Color(0xFFDE5F4B),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
+            text: TextSpan(text: '¿No tienes una cuenta? ', style: AppTypography.body.copyWith(color: AppColors.muted), children: [TextSpan(text: 'Regístrate', style: AppTypography.link.copyWith(fontWeight: FontWeight.bold))]),
           ),
         ),
       ],
