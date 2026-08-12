@@ -1,4 +1,7 @@
+import 'package:examplo_mvvm/ui/view/home.dart';
+import 'package:examplo_mvvm/ui/viewmodel/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../theme/colors.dart';
 import '../theme/typography.dart';
 
@@ -18,9 +21,28 @@ class _LoginPageState extends State<LoginPage> {
   void _toggleRememberMe() => setState(() => _rememberMe = !_rememberMe);
   void _togglePasswordVisibility() => setState(() => _passwordVisible = !_passwordVisible);
 
-  void _signIn() {}
+  void _signIn() {
+    _doLogin();
+  }
   void _register() {}
   void _forgotPassword() {}
+
+  Future<void> _doLogin() async {
+    final vm = context.read<AuthViewModel>();
+    final success = await vm.login(_emailController.text, _passwordController.text);
+
+    if (success && mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
+    } else if (vm.errorMessage != null && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(vm.errorMessage!), backgroundColor: Colors.red),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
