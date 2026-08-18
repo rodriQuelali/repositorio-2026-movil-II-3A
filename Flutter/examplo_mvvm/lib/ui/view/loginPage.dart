@@ -24,7 +24,9 @@ class _LoginPageState extends State<LoginPage> {
   void _signIn() {
     _doLogin();
   }
-  void _register() {}
+  void _register() {
+    Navigator.pushNamed(context, '/register');
+  }
   void _forgotPassword() {}
 
   Future<void> _doLogin() async {
@@ -68,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                   onRememberMeChanged: _toggleRememberMe,
                   onPasswordVisibilityChanged: _togglePasswordVisibility,
                   onSignIn: _signIn,
+                  onRegister: _register,
                   onForgotPassword: _forgotPassword,
                   onGoogleSignIn: () {},
                 ),
@@ -107,6 +110,7 @@ class _LoginCard extends StatelessWidget {
     required this.onRememberMeChanged,
     required this.onPasswordVisibilityChanged,
     required this.onSignIn,
+    required this.onRegister,
     required this.onForgotPassword,
     required this.onGoogleSignIn,
   });
@@ -118,6 +122,7 @@ class _LoginCard extends StatelessWidget {
   final VoidCallback onRememberMeChanged;
   final VoidCallback onPasswordVisibilityChanged;
   final VoidCallback onSignIn;
+  final VoidCallback onRegister;
   final VoidCallback onForgotPassword;
   final VoidCallback onGoogleSignIn;
 
@@ -186,7 +191,7 @@ class _LoginCard extends StatelessWidget {
           const SizedBox(height: 16),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text('¿No tienes una cuenta? ', style: AppTypography.body.copyWith(color: AppColors.muted)),
-            GestureDetector(onTap: onSignIn, child: Text('Regístrate', style: AppTypography.link.copyWith(fontWeight: FontWeight.bold))),
+            GestureDetector(onTap: onRegister, child: Text('Regístrate', style: AppTypography.link.copyWith(fontWeight: FontWeight.bold))),
           ]),
           const SizedBox(height: 16),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
