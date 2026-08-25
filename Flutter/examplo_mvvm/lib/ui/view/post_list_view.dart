@@ -29,7 +29,9 @@ class PostListView extends StatelessWidget {
                 return ListTile(
                   title: Text(post.title, maxLines: 1, overflow: TextOverflow.ellipsis),
                   subtitle: Text(post.body, maxLines: 1, overflow: TextOverflow.ellipsis),
-                  onTap: () => {},
+                  onTap: () => {
+                    //editar post
+                  },
                   trailing: IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
                     onPressed: () => context.read<PostViewModel>().removePost(post.id!),
