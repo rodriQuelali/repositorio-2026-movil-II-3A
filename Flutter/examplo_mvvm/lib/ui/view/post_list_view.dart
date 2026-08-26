@@ -1,3 +1,4 @@
+import 'package:examplo_mvvm/ui/view/post_form_view.dart';
 import 'package:examplo_mvvm/ui/viewmodel/post_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,11 @@ class PostListView extends StatelessWidget {
                   subtitle: Text(post.body, maxLines: 1, overflow: TextOverflow.ellipsis),
                   onTap: () => {
                     //editar post
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => PostFormView(post: post)),
+                  ),
+                    //Navigator.pushNamed(context, '/registerPosts', arguments: post),
                   },
                   trailing: IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
@@ -45,6 +51,7 @@ class PostListView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
           // Aquí podrías navegar a una pantalla de creación de post
+          Navigator.pushNamed(context, '/registerPosts', arguments: null),
         },
         child: const Icon(Icons.add),
       ),

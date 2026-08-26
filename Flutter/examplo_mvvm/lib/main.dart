@@ -1,5 +1,7 @@
 import 'package:examplo_mvvm/ui/view/home.dart';
 import 'package:examplo_mvvm/ui/view/loginPage.dart';
+import 'package:examplo_mvvm/ui/view/post_form_view.dart';
+import 'package:examplo_mvvm/ui/view/post_list_view.dart';
 import 'package:examplo_mvvm/ui/view/registerUserPage.dart';
 import 'package:examplo_mvvm/ui/viewmodel/auth_viewmodel.dart';
 import 'package:examplo_mvvm/ui/viewmodel/post_viewmodel.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => const LoginPage(),
           '/home': (context) => const HomePage(),
           '/register': (context) => const RegisterView(),
+          '/listPosts': (context) => const PostListView(),
+          '/registerPosts': (context) => const PostFormView(post: null),
           
         }
     )

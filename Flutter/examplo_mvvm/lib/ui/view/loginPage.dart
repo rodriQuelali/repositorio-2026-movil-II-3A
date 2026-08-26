@@ -35,10 +35,11 @@ class _LoginPageState extends State<LoginPage> {
     final success = await vm.login(_emailController.text, _passwordController.text);
 
     if (success && mounted) {
-      Navigator.pushReplacement(
+      /*Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const PostListView()),
-      );
+      );*/
+      Navigator.pushReplacementNamed(context, '/home');
     } else if (vm.errorMessage != null && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(vm.errorMessage!), backgroundColor: Colors.red),
