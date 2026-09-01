@@ -1,3 +1,5 @@
+import 'package:examplo_mvvm/ui/view/homeContent.dart';
+import 'package:examplo_mvvm/ui/view/post_list_view.dart';
 import 'package:examplo_mvvm/ui/viewmodel/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,16 +12,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  int _selectIndex = 0;
+
+  List<Widget> _pages = [
+    const HomeContent(), //0
+    const PostListView(), //1
+    //mas de páginas que quieras agregar
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
+      //appBar: AppBar(title: const Text('MI APLICACION ITBM'),),
+      body: IndexedStack(
+        index: _selectIndex,
+        children: _pages,
       ),
-      body: const Center(
-        child: Text('Bienvenido a la página de inicio'),
-      ),
-      drawer: context.watch<AuthViewModel>().currentUser != null
+      /*drawer: context.watch<AuthViewModel>().currentUser != null
           ? Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -40,7 +50,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             )
-          : null,
+          : null,*/
+
       bottomNavigationBar: BottomAppBar(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -48,25 +59,29 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                     icon: const Icon(Icons.home),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/home');
+                      setState(() {
+                        _selectIndex = 0;
+                      });
                     },
                   ),
                   IconButton(
                     icon: const Icon(Icons.api_rounded),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/listPosts');
+                     setState(() {
+                        _selectIndex = 1;
+                      });
                     },
                   ),
                   IconButton(
                     icon: const Icon(Icons.outbox_rounded),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/home');
+                     // Navigator.pushReplacementNamed(context, '/home');
                     },
                   ),
                   IconButton(
                     icon: const Icon(Icons.person),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/home');
+                      //Navigator.pushReplacementNamed(context, '/home');
                     },
                   ),
                 ],

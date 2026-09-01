@@ -8,6 +8,7 @@ class DatabaseHelper {
 
   static Database? _database;
   static const String tableName = 'usuarios';
+  static const String tablePedidos = 'pedidos';
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -30,6 +31,21 @@ class DatabaseHelper {
         correo TEXT NOT NULL UNIQUE,
         contrasena TEXT NOT NULL,
         fecha_nacimiento TEXT NOT NULL
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE $tablePedidos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        cliente TEXT NOT NULL,
+        producto TEXT NOT NULL,
+        cantidad INTEGER NOT NULL,
+        precio REAL NOT NULL,
+        descripcion TEXT,
+        fecha_pedido TEXT NOT NULL,
+        estado INTEGER NOT NULL,
+        foto_path TEXT,
+        latitud REAL,
+        longitud REAL
       )
     ''');
   }
