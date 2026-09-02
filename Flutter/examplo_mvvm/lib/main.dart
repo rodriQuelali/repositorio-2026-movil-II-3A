@@ -4,6 +4,7 @@ import 'package:examplo_mvvm/ui/view/post_form_view.dart';
 import 'package:examplo_mvvm/ui/view/post_list_view.dart';
 import 'package:examplo_mvvm/ui/view/registerUserPage.dart';
 import 'package:examplo_mvvm/ui/viewmodel/auth_viewmodel.dart';
+import 'package:examplo_mvvm/ui/viewmodel/pedido_viewmodel.dart';
 import 'package:examplo_mvvm/ui/viewmodel/post_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => PostViewModel()..fetchPosts()),
+        ChangeNotifierProvider(create: (_) => PedidoViewModel()..fetchPedidos()),
       ],
       child:MaterialApp(
         title: 'MVVM Appss',

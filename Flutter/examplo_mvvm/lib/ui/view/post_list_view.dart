@@ -49,6 +49,7 @@ class PostListView extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'fab_posts',
         onPressed: () => {
           // Aquí podrías navegar a una pantalla de creación de post
           Navigator.pushNamed(context, '/registerPosts', arguments: null),

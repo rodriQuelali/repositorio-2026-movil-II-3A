@@ -1,4 +1,5 @@
 import 'package:examplo_mvvm/ui/view/homeContent.dart';
+import 'package:examplo_mvvm/ui/view/pedido_list_view.dart';
 import 'package:examplo_mvvm/ui/view/post_list_view.dart';
 import 'package:examplo_mvvm/ui/viewmodel/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _pages = [
     const HomeContent(), //0
     const PostListView(), //1
+    const PedidoListView(), //2
     //mas de páginas que quieras agregar
   ];
 
@@ -75,7 +77,9 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                     icon: const Icon(Icons.outbox_rounded),
                     onPressed: () {
-                     // Navigator.pushReplacementNamed(context, '/home');
+                      setState(() {
+                        _selectIndex = 2;
+                      });
                     },
                   ),
                   IconButton(
