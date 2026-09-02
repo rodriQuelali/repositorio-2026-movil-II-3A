@@ -23,10 +23,26 @@ class PedidoListView extends StatelessWidget {
   }
 
   /// Abre la ubicación del pedido en la app de mapas del dispositivo.
-  Future<void> _abrirEnMapa(double lat, double lng) async {
-    final uri = Uri.parse('https://www.google.com/maps/search/?api=1&query=$lat,$lng');
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+  Future<void> _abrirEnMapa(BuildContext context, double lat, double lng) async {
+    final geoUri = Uri.parse('geo:$lat,$lng?q=$lat,$lng');
+    final webUri = Uri.parse(
+      'https://www.google.com/maps/search/?api=1&query=$lat,$lng',
+    );
+
+    if (await canLaunchUrl(geoUri) &&
+        await launchUrl(geoUri, mode: LaunchMode.externalApplication)) {
+      return;
+    }
+
+    if (await canLaunchUrl(webUri) &&
+        await launchUrl(webUri, mode: LaunchMode.externalApplication)) {
+      return;
+    }
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('El emulador no tiene una app para abrir mapas.')),
+      );
     }
   }
 
@@ -95,8 +111,11 @@ class PedidoListView extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.location_on, color: Colors.blue),
                           tooltip: 'Ver ubicación en el mapa',
-                          onPressed: () =>
-                              _abrirEnMapa(pedido.latitud!, pedido.longitud!),
+                          onPressed: () => _abrirEnMapa(
+                            context,
+                            pedido.latitud!,
+                            pedido.longitud!,
+                          ),
                         ),
                       IconButton(
                         icon: const Icon(Icons.delete, color: Colors.red),
