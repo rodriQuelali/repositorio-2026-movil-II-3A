@@ -26,30 +26,37 @@ class NotaUnitTest {
     }
 
     @Test
-    fun notaAprobada_test(){
+    fun notaAprobada_test() {
         val res = nota.calcularNota(Estudiante("alan brito", 85))
         assertTrue(res)
     }
 
     @Test
-    fun notaReprobado_test(){
+    fun notaReprobado_test() {
         val res = nota.calcularNota(Estudiante("alan brito", 45))
         assertFalse(res)
     }
 
     @Test
-    fun notaValida_test(){
+    fun notaValida_test() {
         val res = nota.validarNotas(Estudiante("alan brito", -45))
         assertEquals("nota invalida", res)
     }
 
-
-
     //menejo de expciones
     @Test(expected = IllegalArgumentException::class)
-    fun notaInvalida_test(){
-        val res = nota.validarNota(Estudiante("alan brito", 20))
+    fun notaInvalida_test() {
+        val res = nota.validarNota(Estudiante("alan brito", -20))
         println("+++++++++++${res}")
         assertTrue(res)
     }
+
+
+    //crar un nuevo clase test
+    //realizar una test del impuesto
+    // %12 de producto
+    // calcular el imouesto.
+    // entrada: producto(nombre, precio), Impuesto : calcularImpiuesto(producto),
+    // ejemplo : laptop,150 , 16 , true.
+
 }
